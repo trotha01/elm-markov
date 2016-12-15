@@ -79,7 +79,7 @@ view model =
     in
         div []
             [ textarea [ textStyle, placeholder "input", onInput MarkovifyIn ] []
-            , textarea [ textStyle, placeholder "type here", onInput MarkovifyOut, value model.out ] [ text model.out ]
+            , textarea [ textStyle, placeholder "type here", onInput MarkovifyOut, value model.out ] []
             ]
 
 

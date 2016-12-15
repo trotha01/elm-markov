@@ -57,14 +57,8 @@ next markov =
                 Nothing ->
                     -- start a new sentence
                     ( "", nextSeed )
-
-        ( word3, lastWord ) =
-            if word2 == "" then
-                ( ".", "" )
-            else
-                ( word2, word2 )
     in
-        ( word3, { markov | seed = nextSeed2, lastWord = lastWord } )
+        ( word2, { markov | seed = nextSeed2, lastWord = word2 } )
 
 
 {-| chain creates a list of pairs from the list. Empty string represents the start of a sentence.
@@ -80,16 +74,7 @@ chain_ : List ( String, String ) -> List String -> List ( String, String )
 chain_ pairs list =
     case list of
         a :: b :: t ->
-            if (endOfSentence a) then
-                chain_ (( (String.dropRight 1 a), "" ) :: ( "", b ) :: pairs) (b :: t)
-            else
-                chain_ (( a, b ) :: pairs) (b :: t)
-
-        a :: _ ->
-            if (endOfSentence a) then
-                (( (String.dropRight 1 a), "" ) :: pairs)
-            else
-                pairs
+            chain_ (( a, b ) :: pairs) (b :: t)
 
         _ ->
             pairs
